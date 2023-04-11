@@ -23,13 +23,12 @@ public class CotefacilJavaTestApplication {
     private SwService swService;
 
     @PostConstruct
-    public void init() throws IOException, JSONException {
+    public void init() throws JSONException, IOException, InterruptedException {
         log.info(String.valueOf(UUID.randomUUID()));
         log.info("Initializing project");
         if (swService.getCount() == 0) {
             log.info("Mocking default data");
-            swService.getData();
-
+            swService.saveFirstData();
         }
     }
 }

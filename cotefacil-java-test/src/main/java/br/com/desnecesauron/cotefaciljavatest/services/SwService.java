@@ -6,17 +6,25 @@ import lombok.extern.java.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @Log
 @Service
 public class SwService {
 
+    @Value("${swapi.startUrl}")
+    private String startUrlSWApi;
+
+    @Value("${swapi.endUrl}")
+    private String endUrlSWApi;
     final SwRepository swRepository;
 
     public SwService(SwRepository swRepository) {
@@ -31,47 +39,39 @@ public class SwService {
         return swRepository.findAll();
     }
 
-    public List<SwData> getData() throws IOException, JSONException {
-        String e_url = "https://swapi.dev/api/planets/?format=json"; //external API with above JSON data
-//        RestTemplate rt = new RestTemplate();
+    public SwData save(SwData swData) {
+        return swRepository.save(swData);
+    }
 
-        URL url = new URL("https://api.covid19api.com/summary");
+    public void deleteById(String id) {
+        swRepository.deleteById(id);
+    }
 
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
+    public SwData update(SwData swData) {
+//        swRepository.;
+        return null;
+    }
 
-        String response = conn.getResponseMessage();
-        log.info(response);
-//        log.info((String) conn.getContent());
+    public List<SwData> saveFirstData() throws IOException, InterruptedException, JSONException {
+        String urlSWApi = startUrlSWApi + "planets/" + endUrlSWApi; //external API with JSON data
 
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(urlSWApi)).build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        log.info("Response body -> " + response.body());
 
-//        String jsonString = ((String) conn.getContent()).formatted();
-        JSONObject obj = new JSONObject(conn.getContent());
-        //    String pageName = obj.getJSONObject("pageInfo").getString("pageName");
-//
-        log.info(obj.toString());
-        JSONArray arr = obj.getJSONArray("Countries"); // notice that `"posts": [...]`
-        log.info(arr.toString());
+        JSONObject obj = new JSONObject(response.body().toString());
+        log.info(String.valueOf("Getting first page of API"));
+        JSONArray arr = obj.getJSONArray("results");
         for (int i = 0; i < arr.length(); i++) {
-            String post_id = arr.getJSONObject(i).getString("Country");
-            log.info(post_id);
+            SwData swData = new SwData();
+            swData.setName(arr.getJSONObject(i).getString("name"));
+            swData.setTerrain(arr.getJSONObject(i).getString("terrain"));
+            swData.setClimate(arr.getJSONObject(i).getString("climate"));
+            log.info(swData.toString());
+            swRepository.save(swData);
         }
 
-
-        //RestTemplate rt = new RestTemplate();
-
-//        Object[] test = rt.getForObject(e_url, );
-        //      List<Object> data = Arrays.asList(test);
-        //    log.info(data.toString());
-
-//        return data;
-//        SwData[] test = rt.getForObject(e_url, SwData[].class);
-        //      List<SwData> data = Arrays.asList(test);
-        //    data.forEach(swData -> {
-        //      log.info(swData.toString());
-        //});
-        //return data;
         return null;
     }
 }
