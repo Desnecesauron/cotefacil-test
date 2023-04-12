@@ -26,6 +26,7 @@ public class CotefacilJavaTestApplication {
     public void init() throws JSONException, IOException, InterruptedException {
         log.info(String.valueOf(UUID.randomUUID()));
         log.info("Initializing project");
+        log.info("Count service: " + swService.getCount());
         if (swService.getCount() == 0) {
             log.info("Mocking default data");
             swService.saveFirstData();

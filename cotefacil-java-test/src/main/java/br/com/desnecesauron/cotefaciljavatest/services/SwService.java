@@ -43,13 +43,16 @@ public class SwService {
         return swRepository.save(swData);
     }
 
-    public void deleteById(String id) {
-        swRepository.deleteById(id);
+    public List<SwData> findByNameContaining(String name) {
+        return swRepository.findByNameContaining(name);
     }
 
-    public SwData update(SwData swData) {
-//        swRepository.;
-        return null;
+    public SwData findById(String id) {
+        return swRepository.findById(id).orElse(null);
+    }
+
+    public void deleteById(String id) {
+        swRepository.deleteById(id);
     }
 
     public List<SwData> saveFirstData() throws IOException, InterruptedException, JSONException {
@@ -68,6 +71,7 @@ public class SwService {
             swData.setName(arr.getJSONObject(i).getString("name"));
             swData.setTerrain(arr.getJSONObject(i).getString("terrain"));
             swData.setClimate(arr.getJSONObject(i).getString("climate"));
+            swData.setQuantityShowedFilms(arr.getJSONObject(i).getJSONArray("films").length());
             log.info(swData.toString());
             swRepository.save(swData);
         }

@@ -21,4 +21,5 @@ public class SwData {
     String name;
     String climate;
     String terrain;
+    Integer quantityShowedFilms;
 }

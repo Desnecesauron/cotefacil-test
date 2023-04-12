@@ -3,6 +3,7 @@
 /.idea
 .vscode/
 .mvn
+*.mv.db
 
 # Log file
 *.log
