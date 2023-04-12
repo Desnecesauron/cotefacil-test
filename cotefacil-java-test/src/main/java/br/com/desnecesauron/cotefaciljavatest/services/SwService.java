@@ -55,27 +55,30 @@ public class SwService {
         swRepository.deleteById(id);
     }
 
-    public List<SwData> saveFirstData() throws IOException, InterruptedException, JSONException {
+    public void saveFirstData() {
         String urlSWApi = startUrlSWApi + "planets/" + endUrlSWApi; //external API with JSON data
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(urlSWApi)).build();
-        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        log.info("Response body -> " + response.body());
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(urlSWApi)).build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            log.info("Response body -> " + response.body());
 
-        JSONObject obj = new JSONObject(response.body().toString());
-        log.info("Getting first page of API");
-        JSONArray arr = obj.getJSONArray("results");
-        for (int i = 0; i < arr.length(); i++) {
-            SwData swData = new SwData();
-            swData.setName(arr.getJSONObject(i).getString("name"));
-            swData.setTerrain(arr.getJSONObject(i).getString("terrain"));
-            swData.setClimate(arr.getJSONObject(i).getString("climate"));
-            swData.setQuantityShowedFilms(arr.getJSONObject(i).getJSONArray("films").length());
-            log.info(swData.toString());
-            swRepository.save(swData);
+            JSONObject obj = new JSONObject(response.body());
+            log.info("Getting first page of API");
+            JSONArray arr = obj.getJSONArray("results");
+            for (int i = 0; i < arr.length(); i++) {
+                SwData swData = new SwData();
+                swData.setName(arr.getJSONObject(i).getString("name"));
+                swData.setTerrain(arr.getJSONObject(i).getString("terrain"));
+                swData.setClimate(arr.getJSONObject(i).getString("climate"));
+                swData.setQuantityShowedFilms(arr.getJSONObject(i).getJSONArray("films").length());
+                log.info(swData.toString());
+                swRepository.save(swData);
+            }
+        } catch (JSONException | IOException | InterruptedException ex) {
+            log.info("Could not convert JSON to data, skipping");
+            log.info(ex.getMessage());
         }
-
-        return null;
     }
 }
