@@ -64,7 +64,7 @@ public class SwService {
         log.info("Response body -> " + response.body());
 
         JSONObject obj = new JSONObject(response.body().toString());
-        log.info(String.valueOf("Getting first page of API"));
+        log.info("Getting first page of API");
         JSONArray arr = obj.getJSONArray("results");
         for (int i = 0; i < arr.length(); i++) {
             SwData swData = new SwData();

@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SwRepository extends JpaRepository<SwData, String> {
 
-    public List<SwData> findByNameContaining(String name);
+    List<SwData> findByNameContaining(String name);
 }

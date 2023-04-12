@@ -15,12 +15,15 @@ import java.util.UUID;
 @SpringBootApplication
 public class CotefacilJavaTestApplication {
 
+    private final SwService swService;
+
+    public CotefacilJavaTestApplication(SwService swService) {
+        this.swService = swService;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(CotefacilJavaTestApplication.class, args);
     }
-
-    @Autowired
-    private SwService swService;
 
     @PostConstruct
     public void init() throws JSONException, IOException, InterruptedException {
