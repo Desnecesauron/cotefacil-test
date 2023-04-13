@@ -1,35 +1,44 @@
 <div style="display: flex; justify-content: center;">
     <app-spinner [isLoadingResults]=isLoadingResults></app-spinner>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="table-striped table-bordered mat-elevation-z8">
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <th mat-header-cell style="text-align: center; padding-left: 0px;" *matHeaderCellDef> Name </th>
+            <td mat-cell style="text-align: center; padding-left: 0px;" *matCellDef="let element"> {{element.name}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="climate">
             <th mat-header-cell *matHeaderCellDef> Climate </th>
-            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.climate}} </td>
         </ng-container>
 
         <ng-container matColumnDef="terrain">
             <th mat-header-cell *matHeaderCellDef> Terrain </th>
-            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.terrain}} </td>
         </ng-container>
 
         <ng-container matColumnDef="quantityShowedFilms">
             <th mat-header-cell *matHeaderCellDef> Quantity showed films </th>
-            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.quantityShowedFilms}} </td>
         </ng-container>
 
         <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef> Edit </th>
-            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            <td mat-cell style="text-align: center;" *matCellDef="let element">
+                <button mat-icon-button color="primary">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="exclude">
             <th mat-header-cell *matHeaderCellDef> Exclude </th>
-            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            <td mat-cell style="text-align: center;" *matCellDef="let element">
+                <button mat-icon-button color="warn" (click)="deleteRow(element.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -41,10 +41,18 @@ export class HomeComponent implements OnInit {
     this.apiGenericService.get(Global.API_URL).subscribe({
       next: (response: SWObject[]) => {
         this.dataSource = response;
-        console.log(response);
-
-        // dataSour
       },
     });
+  }
+
+  deleteRow(id: string) {
+    if (id) {
+      this.apiGenericService.delete(Global.API_URL + 'delete/' + id).subscribe({
+        next: (value) => {
+          alert('done');
+          location.reload();
+        },
+      });
+    }
   }
 }

@@ -11,4 +11,12 @@ export class ApiGenericService {
   public get(url = ''): Observable<any> {
     return this.httpClient.get(url);
   }
+
+  public post(url = '', body: any = ''): Observable<any> {
+    return this.httpClient.post(url, body);
+  }
+
+  public delete(url = ''): Observable<any> {
+    return this.httpClient.delete(url);
+  }
 }
