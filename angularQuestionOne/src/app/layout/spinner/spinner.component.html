@@ -1,5 +1,5 @@
-<div
-    style="position: absolute; width: 100vw; height: 95vw; z-index: 500; background-color: black; opacity: 0.2; display: flex; align-items: center; flex-direction: row; justify-content: center;">
+<div *ngIf=isLoadingResults
+    style="position: absolute; left: 0px; top: 0px; width: 100vw; height: 100vh; z-index: 500; background-color: blue; opacity: 0.2; display: flex; align-items: center; justify-content: center;">
 
-    <mat-spinner *ngIf=isLoadingResults style="position: absolute;"></mat-spinner>
+    <mat-spinner></mat-spinner>
 </div>

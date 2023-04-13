@@ -6,7 +6,10 @@
             <!-- <button class="buttonNg" mat-stroked-button>Basic3</button> -->
         </div>
     </mat-drawer>
-    <mat-drawer-content>
-        <button mat-raised-button (click)="drawer.toggle()">Mais opções</button>
-    </mat-drawer-content>
+
+    <button mat-raised-button (click)="drawer.toggle()">Mais opções</button>
+
+    <router-outlet>
+    </router-outlet>
+
 </mat-drawer-container>
