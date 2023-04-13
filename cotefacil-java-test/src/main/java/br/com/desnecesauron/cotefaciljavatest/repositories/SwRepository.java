@@ -9,5 +9,9 @@ import java.util.List;
 @Repository
 public interface SwRepository extends JpaRepository<SwData, String> {
 
-    List<SwData> findByNameContaining(String name);
+    List<SwData> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
+
+    List<SwData> findAllByOrderByNameAsc();
+
+    List<SwData> findByIdContainingIgnoreCaseOrderByNameAsc(String id);
 }

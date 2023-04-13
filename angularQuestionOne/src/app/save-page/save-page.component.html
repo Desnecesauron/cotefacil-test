@@ -1,0 +1,31 @@
+<app-spinner [isLoadingResults]=isLoadingResults></app-spinner>
+
+<div style="width: 95vw; margin: auto;" [formGroup]="sWObjectForm">
+
+    <div style="display: grid;">
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Endor" value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Climate</mat-label>
+            <input matInput formControlName="climate" placeholder="Arid" value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Terrain</mat-label>
+            <input matInput formControlName="terrain" placeholder="Desert" value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Quantity showed in films</mat-label>
+            <input matInput formControlName="quantityShowedFilms" placeholder="5" type="number">
+        </mat-form-field>
+
+        <button mat-raised-button style="margin: 1.5vh 0vw 1.5vh 2.5vw;" (click)="save()">
+            Save
+        </button>
+    </div>
+
+</div>

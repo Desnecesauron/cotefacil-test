@@ -15,6 +15,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.UUID;
 
 @Log
 @Service
@@ -36,19 +37,26 @@ public class SwService {
     }
 
     public List<SwData> getAll() {
-        return swRepository.findAll();
+        return swRepository.findAllByOrderByNameAsc();
     }
 
     public SwData save(SwData swData) {
+        if (swData.getId().trim().equals("")) {
+            swData.setId(String.valueOf(UUID.randomUUID()));
+        }
         return swRepository.save(swData);
     }
 
     public List<SwData> findByNameContaining(String name) {
-        return swRepository.findByNameContaining(name);
+        return swRepository.findByNameContainingIgnoreCaseOrderByNameAsc(name);
     }
 
     public SwData findById(String id) {
         return swRepository.findById(id).orElse(null);
+    }
+
+    public List<SwData> findByIdContaining(String id) {
+        return swRepository.findByIdContainingIgnoreCaseOrderByNameAsc(id);
     }
 
     public void deleteById(String id) {

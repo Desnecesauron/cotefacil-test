@@ -44,6 +44,11 @@ public class SwController {
         return swService.findById(id);
     }
 
+    @GetMapping("id-containing/{id}")
+    public Object findByIdContaining(@PathVariable String id) {
+        return swService.findByIdContaining(id);
+    }
+
     @DeleteMapping("delete/{id}")
     public void deleteById(@PathVariable String id) {
         swService.deleteById(id);

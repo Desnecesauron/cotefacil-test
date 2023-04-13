@@ -1,48 +1,69 @@
-<div style="display: flex; justify-content: center;">
-    <app-spinner [isLoadingResults]=isLoadingResults></app-spinner>
+<app-spinner [isLoadingResults]=isLoadingResults></app-spinner>
 
-    <table mat-table [dataSource]="dataSource" class="table-striped table-bordered mat-elevation-z8">
-        <ng-container matColumnDef="name">
-            <th mat-header-cell style="text-align: center; padding-left: 0px;" *matHeaderCellDef> Name </th>
-            <td mat-cell style="text-align: center; padding-left: 0px;" *matCellDef="let element"> {{element.name}}
-            </td>
-        </ng-container>
 
-        <ng-container matColumnDef="climate">
-            <th mat-header-cell *matHeaderCellDef> Climate </th>
-            <td mat-cell *matCellDef="let element"> {{element.climate}} </td>
-        </ng-container>
+<div style="width: 95vw; margin: auto;" [formGroup]="searchForm">
 
-        <ng-container matColumnDef="terrain">
-            <th mat-header-cell *matHeaderCellDef> Terrain </th>
-            <td mat-cell *matCellDef="let element"> {{element.terrain}} </td>
-        </ng-container>
+    <div style="display: flex; justify-content: space-evenly;">
+        <mat-form-field class="example-full-width">
+            <mat-label>Search here by name</mat-label>
+            <input matInput formControlName="nameSearch" (keyup)="getDataByName()" placeholder="Endor" value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Search here by id</mat-label>
+            <input matInput formControlName="idSearch" (keyup)="getDataById()" placeholder="025367e8-7..." value="">
+        </mat-form-field>
+    </div>
 
-        <ng-container matColumnDef="quantityShowedFilms">
-            <th mat-header-cell *matHeaderCellDef> Quantity showed films </th>
-            <td mat-cell *matCellDef="let element"> {{element.quantityShowedFilms}} </td>
-        </ng-container>
+    <div style="display: flex; justify-content: center;">
+        <table mat-table [dataSource]="dataSource" class="table-striped table-bordered mat-elevation-z8">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell style="text-align: center; padding-left: 0px;" *matHeaderCellDef> Id </th>
+                <td mat-cell style="text-align: center; padding-left: 0px;" *matCellDef="let element"> {{element.id}}
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef> Edit </th>
-            <td mat-cell style="text-align: center;" *matCellDef="let element">
-                <button mat-icon-button color="primary">
-                    <mat-icon>edit</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell style="text-align: center; padding-left: 0px;" *matHeaderCellDef> Name </th>
+                <td mat-cell style="text-align: center; padding-left: 0px;" *matCellDef="let element"> {{element.name}}
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="exclude">
-            <th mat-header-cell *matHeaderCellDef> Exclude </th>
-            <td mat-cell style="text-align: center;" *matCellDef="let element">
-                <button mat-icon-button color="warn" (click)="deleteRow(element.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="climate">
+                <th mat-header-cell *matHeaderCellDef> Climate </th>
+                <td mat-cell *matCellDef="let element"> {{element.climate}} </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <ng-container matColumnDef="terrain">
+                <th mat-header-cell *matHeaderCellDef> Terrain </th>
+                <td mat-cell *matCellDef="let element"> {{element.terrain}} </td>
+            </ng-container>
 
+            <ng-container matColumnDef="quantityShowedFilms">
+                <th mat-header-cell *matHeaderCellDef> Quantity showed films </th>
+                <td mat-cell *matCellDef="let element"> {{element.quantityShowedFilms}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef> Edit </th>
+                <td mat-cell style="text-align: center;" *matCellDef="let element">
+                    <button mat-icon-button color="primary" (click)="editRow(element.id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="exclude">
+                <th mat-header-cell *matHeaderCellDef> Exclude </th>
+                <td mat-cell style="text-align: center;" *matCellDef="let element">
+                    <button mat-icon-button color="warn" (click)="deleteRow(element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
 </div>
