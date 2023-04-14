@@ -1,0 +1,8 @@
+<div formGroupName="formToggle" style="display: flex; flex-direction: column; align-items: center;">
+  <h1>Counter: {{counter}}</h1>
+  <button mat-raised-button style="margin: 1.5vh 0vw 1.5vh 1.5vw;" (click)="addOne()">Add one</button>
+  <button mat-raised-button style="margin: 1.5vh 0vw 1.5vh 1.5vw;" (click)="reset()">Reset</button>
+  <mat-slide-toggle formControlName="activated" (toggleChange)="deactivateLocalStorage()"
+    [checked]="formToggle.value.activated">LocalStorage :
+    {{formToggle.value.activated}}</mat-slide-toggle>
+</div>

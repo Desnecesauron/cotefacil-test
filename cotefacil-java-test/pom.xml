@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.com.desnecesauron</groupId>
     <artifactId>cotefacil-java-test</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>cotefacil-java-test</name>
     <description>cotefacil-java-test</description>
     <properties>

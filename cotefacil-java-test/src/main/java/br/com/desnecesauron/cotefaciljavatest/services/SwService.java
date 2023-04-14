@@ -21,10 +21,10 @@ import java.util.UUID;
 @Service
 public class SwService {
 
-    @Value("${swapi.startUrl}")
+    @Value("${SWApi.startUrl}")
     private String startUrlSWApi;
 
-    @Value("${swapi.endUrl}")
+    @Value("${SWApi.endUrl}")
     private String endUrlSWApi;
     final SwRepository swRepository;
 

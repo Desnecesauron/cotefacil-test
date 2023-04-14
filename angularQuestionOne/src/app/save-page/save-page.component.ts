@@ -52,14 +52,15 @@ export class SavePageComponent implements OnInit {
     this.isLoadingResults = true;
     this.apiService.get(Global.API_URL + 'id/' + this.id).subscribe({
       next: (response: SWObject) => {
-        this.SWRow = response;
-        this.isLoadingResults = false;
-        this.setDataForForm();
-
         //check if has this unit stored in db
         if (!response) {
           this.router.navigate(['/']);
+          return;
         }
+
+        this.SWRow = response;
+        this.isLoadingResults = false;
+        this.setDataForForm();
       },
       error: (err) => {
         this.isLoadingResults = false;
